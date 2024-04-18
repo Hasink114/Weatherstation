@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Area Weather</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/design.css">
+</head>
+<body>
+    
+    <div class="containor">
+        <form action="/getWeatherUpdate" class="weatherSearchForm" method="post">
+            <div class="locationBox">
+                <i class="ri-map-pin-2-fill"></i>
+                <input type="text" id="location" name="location" placeholder="Enter your location">
+                <button type="submit" i class="ri-search-line"></button>
+            </div>
+        </form>
+        <div class="tempDescp">
+            <% if(result.main && result.main.humidity && result.weather.description && result.weather.main){ %>
+                
+                <% if(result.weather.main === 'Clear'){ %>
+                    <i class="ri-sun-line"></i>
+                <% } else if(result.weather.main === 'Rain'){ %>
+                    <i class="ri-heavy-showers-line"></i>
+                <% } else if(result.weather.main === 'Snow'){ %>
+                    <i class="ri-snowflake-line"></i>
+                <% } else if(result.weather.main === 'Clouds'){ %>
+                    <i class="ri-cloudy-line"></i>
+                <% } else if(result.weather.main === 'Haze'){ %>
+                    <i class="ri-haze-line"></i>
+                <% } else if(result.weather.main === 'Smoke'){%>
+                    <i class="ri-foggy-line"></i>
+                <% } %>
+                <p class="temperature">Temperature <%= result.main.temp %> °C</p>
+                <p class="description"><%= result.weather.description %></p>
+            <% } else{ %>
+                <i class="ri-sun-line"></i>
+                <p class="temperature">Temperature   °C</p>    
+                <p class="description">Weather Details</p>
+            <% } %>
+        </div>
+        
+        <div class="detailsOfWeather">
+            <div class="humidity">
+                <i class="fa-solid fa-water"></i>
+                <div class="text">
+                    <span></span>
+                    <% if(result.main && result.main.humidity){ %>
+                        <p>Humidity: <%= result.main.humidity %> %</p>
+                    <% } else{ %>
+                        <p>Humidity:   %</p>    
+                    <% } %>
+                </div>
+            </div>
+            <div class="wind">
+                <i class="fa-solid fa-wind"></i>
+                <div class="text">
+                    <span></span>
+                    <% if(result.main && result.wind.speed){ %>
+                        <p>Wind: <%= result.wind.speed %> Km/h</p>
+                    <% } else{ %>
+                        <p>Wind:   km/h</p>    
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
